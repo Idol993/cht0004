@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Card, List, Tag, Button, Typography, App, Empty, Avatar, Space, Modal, Form, Input } from 'antd'
+import { Card, List, Tag, Button, Typography, App as AntdApp, Empty, Avatar, Space, Modal, Form, Input } from 'antd'
 import {
   ClockCircleOutlined, PayCircleOutlined, UserOutlined,
   ExclamationCircleOutlined, CalendarOutlined
@@ -13,7 +13,7 @@ const { confirm } = Modal
 
 function PendingBills() {
   const navigate = useNavigate()
-  const { message } = App.useApp()
+  const { message } = AntdApp.useApp()
   const [loading, setLoading] = useState(false)
   const [bills, setBills] = useState([])
   const [payModalVisible, setPayModalVisible] = useState(false)

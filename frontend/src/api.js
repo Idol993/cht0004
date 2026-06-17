@@ -44,6 +44,7 @@ export const billApi = {
   confirmSettlement: (id) => api.post(`/bills/${id}/confirm-settlement`).then(r => r.data),
   getPending: () => api.get('/bills/my/pending').then(r => r.data),
   getHistory: (params) => api.get('/bills/my/history', { params }).then(r => r.data),
+  exportMyMonthly: (month) => api.get(`/bills/my/export/${month}`, { responseType: 'blob' }).then(r => r),
   delete: (id) => api.delete(`/bills/${id}`).then(r => r.data)
 }
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Card, Col, Row, Statistic, List, Tag, Button, Typography, App } from 'antd'
+import { Card, Col, Row, Statistic, List, Tag, Button, Typography, App as AntdApp } from 'antd'
 import {
   MoneyCollectOutlined,
   ClockCircleOutlined,
@@ -15,7 +15,7 @@ const { Title, Text } = Typography
 
 function Dashboard() {
   const navigate = useNavigate()
-  const { message } = App.useApp()
+  const { message } = AntdApp.useApp()
   const [stats, setStats] = useState({ total_paid: 0, total_owed: 0 })
   const [pendingBills, setPendingBills] = useState([])
   const [recentBills, setRecentBills] = useState([])

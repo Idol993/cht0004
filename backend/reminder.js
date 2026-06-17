@@ -35,7 +35,7 @@ function checkOverdueBills() {
 
     if (daysOverdue >= 7) {
       const sevenDayReminder = db.reminderLogs.findEverReminder(
-        bp.bill_id, bp.creator_id, 'severely_overdue'
+        bp.bill_id, bp.user_id, 'severely_overdue'
       );
 
       if (!sevenDayReminder) {
@@ -51,11 +51,11 @@ function checkOverdueBills() {
 
         db.reminderLogs.create({
           bill_id: bp.bill_id,
-          user_id: bp.creator_id,
+          user_id: bp.user_id,
           reminder_type: 'severely_overdue'
         });
 
-        console.log(`已发送严重逾期通知给发起人 ${creator?.nickname}，账单：${bp.title}`);
+        console.log(`已发送严重逾期通知给发起人 ${creator?.nickname}，账单：${bp.title}，逾期人：${bp.nickname}`);
       }
     }
   });

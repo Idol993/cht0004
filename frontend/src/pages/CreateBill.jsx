@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Card, Form, Input, InputNumber, DatePicker, Select, Button, Typography, App, Space, Tag, Divider, List, Avatar } from 'antd'
+import { Card, Form, Input, InputNumber, DatePicker, Select, Button, Typography, App as AntdApp, Space, Tag, Divider, List, Avatar } from 'antd'
 import { UserOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
 import dayjs from 'dayjs'
@@ -11,7 +11,7 @@ const { Option } = Select
 
 function CreateBill() {
   const navigate = useNavigate()
-  const { message } = App.useApp()
+  const { message } = AntdApp.useApp()
   const [form] = Form.useForm()
   const [loading, setLoading] = useState(false)
   const [users, setUsers] = useState([])

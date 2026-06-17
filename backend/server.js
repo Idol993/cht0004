@@ -4,7 +4,7 @@ const path = require('path');
 const fs = require('fs');
 
 const db = require('./db');
-const { startReminderService } = require('./reminder');
+const { startReminderService, checkOverdueBills } = require('./reminder');
 
 const authRoutes = require('./routes/auth');
 const billRoutes = require('./routes/bills');
@@ -29,6 +29,11 @@ app.use('/api/admin', adminRoutes);
 
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', message: '账单分摊系统服务运行正常' });
+});
+
+app.post('/api/debug/check-overdue', (req, res) => {
+  checkOverdueBills();
+  res.json({ message: '逾期检查已执行' });
 });
 
 app.use((err, req, res, next) => {

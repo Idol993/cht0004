@@ -341,11 +341,11 @@ const dataAccess = {
       
       let totalPaid = 0;
       let totalOwed = 0;
-      participants.forEach(p => {
-        if (p.status === 'paid') {
-          totalPaid += p.share_amount;
+      bills.forEach(bill => {
+        if (bill.my_status === 'paid') {
+          totalPaid += bill.share_amount;
         } else {
-          totalOwed += p.share_amount;
+          totalOwed += bill.share_amount;
         }
       });
       
@@ -359,6 +359,35 @@ const dataAccess = {
           total_owed: Number(totalOwed.toFixed(2))
         }
       };
+    },
+    getUserMonthlyExport: (userId, month) => {
+      const user = db.users.find(u => u.id === userId);
+      if (!user) return null;
+
+      const records = db.bill_participants
+        .filter(p => p.user_id === userId)
+        .map(p => {
+          const bill = db.bills.find(b => b.id === p.bill_id);
+          if (!bill) return null;
+          if (month && !bill.bill_date.startsWith(month)) return null;
+          const creator = db.users.find(u => u.id === bill.creator_id);
+          return {
+            bill_id: bill.id,
+            title: bill.title,
+            bill_date: bill.bill_date,
+            due_date: bill.due_date,
+            bill_status: bill.status,
+            share_amount: p.share_amount,
+            paid_amount: p.paid_amount || 0,
+            payment_status: p.status,
+            paid_at: p.paid_at || '',
+            creator_name: creator?.nickname || ''
+          };
+        })
+        .filter(Boolean)
+        .sort((a, b) => new Date(b.bill_date) - new Date(a.bill_date));
+
+      return { user, records };
     },
     getTotalAmount: () => {
       return db.bills.reduce((sum, b) => sum + Number(b.total_amount), 0);
@@ -397,7 +426,7 @@ const dataAccess = {
         .filter(p => p.status === 'pending')
         .map(p => {
           const bill = db.bills.find(b => b.id === p.bill_id);
-          if (!bill || !['pending', 'all_paid'].includes(bill.status)) return null;
+          if (!bill || bill.status !== 'pending') return null;
           if (new Date(bill.due_date) >= now) return null;
           
           const user = db.users.find(u => u.id === p.user_id);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Card, Table, Tag, Button, Space, Typography, App, Select, DatePicker, Input } from 'antd'
+import { Card, Table, Tag, Button, Space, Typography, App as AntdApp, Select, DatePicker, Input } from 'antd'
 import { DownloadOutlined, EyeOutlined, SearchOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
 import dayjs from 'dayjs'
@@ -11,7 +11,7 @@ const { MonthPicker } = DatePicker
 
 function AdminBills() {
   const navigate = useNavigate()
-  const { message } = App.useApp()
+  const { message } = AntdApp.useApp()
   const [loading, setLoading] = useState(false)
   const [bills, setBills] = useState([])
   const [total, setTotal] = useState(0)

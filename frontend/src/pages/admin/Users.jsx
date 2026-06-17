@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Card, Table, Tag, Button, Avatar, Typography, App, Space } from 'antd'
+import { Card, Table, Tag, Button, Avatar, Typography, App as AntdApp, Space } from 'antd'
 import { UserOutlined, DownloadOutlined, CrownOutlined } from '@ant-design/icons'
 import dayjs from 'dayjs'
 import { adminApi } from '../../api'
@@ -7,7 +7,7 @@ import { adminApi } from '../../api'
 const { Title } = Typography
 
 function AdminUsers() {
-  const { message } = App.useApp()
+  const { message } = AntdApp.useApp()
   const [loading, setLoading] = useState(false)
   const [users, setUsers] = useState([])
 

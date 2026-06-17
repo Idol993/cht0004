@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import {
-  Card, Descriptions, Tag, Button, List, Avatar, Space, Typography, App,
-  Modal, Form, InputNumber, Divider, Statistic, Row, Col
+  Card, Descriptions, Tag, Button, List, Avatar, Space, Typography, App as AntdApp,
+  Modal, Form, InputNumber, Divider, Statistic, Row, Col, Input
 } from 'antd'
 import {
   CheckOutlined, ClockCircleOutlined, EditOutlined,
@@ -18,7 +18,7 @@ const { confirm } = Modal
 function BillDetail() {
   const { id } = useParams()
   const navigate = useNavigate()
-  const { message } = App.useApp()
+  const { message } = AntdApp.useApp()
   const [bill, setBill] = useState(null)
   const [loading, setLoading] = useState(false)
   const [editMode, setEditMode] = useState(false)
@@ -45,7 +45,7 @@ function BillDetail() {
         amount: p.share_amount
       })))
     } catch (err) {
-      message.error('加载账单详情失败')
+      message.error(err.response?.data?.error || '加载账单详情失败')
     } finally {
       setLoading(false)
     }
@@ -159,7 +159,7 @@ function BillDetail() {
 
   const isOverdue = bill && dayjs().isAfter(dayjs(bill.due_date))
 
-  if (!bill) {
+  if (loading || !bill) {
     return <div style={{ textAlign: 'center', padding: 40 }}>加载中...</div>
   }
 
@@ -259,9 +259,9 @@ function BillDetail() {
               <Space>
                 <Text type="secondary">
                   合计: ¥{getTotalShares()}
-                  {Math.abs(getTotalShares() - bill.total_amount) > 0.01 && (
+                  {Math.abs(Number(getTotalShares()) - Number(bill.total_amount)) > 0.01 && (
                     <span style={{ color: '#ff4d4f', marginLeft: 8 }}>
-                      (与总额不符，差额: ¥{(getTotalShares() - bill.total_amount).toFixed(2)})
+                      (与总额不符，差额: ¥{(Number(getTotalShares()) - Number(bill.total_amount)).toFixed(2)})
                     </span>
                   )}
                 </Text>
@@ -319,7 +319,7 @@ function BillDetail() {
                   />
                 ) : (
                   <span className="money-text" style={{ fontSize: 16, fontWeight: 600 }}>
-                    ¥{(participant?.share_amount || item.share_amount).toFixed(2)}
+                    ¥{Number(participant?.share_amount || item.share_amount).toFixed(2)}
                   </span>
                 )}
               </List.Item>
@@ -361,11 +361,11 @@ function BillDetail() {
             <br />
             <Text type="secondary">应付金额：</Text>
             <Text strong style={{ color: '#1890ff', fontSize: 18 }}>
-              ¥{myParticipant?.share_amount?.toFixed(2)}
+              ¥{Number(myParticipant?.share_amount || 0).toFixed(2)}
             </Text>
           </div>
-          <Form.Item label="付款方式" name="payment_method">
-            <Input defaultValue="线下支付" placeholder="例如：微信、支付宝、现金等" />
+          <Form.Item label="付款方式" name="payment_method" initialValue="线下支付">
+            <Input placeholder="例如：微信、支付宝、现金等" />
           </Form.Item>
           <Form.Item label="备注" name="remark">
             <Input.TextArea rows={2} placeholder="可选" />

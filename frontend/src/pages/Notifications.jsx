@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Card, List, Tag, Button, Typography, App, Space, Empty, Badge, Avatar } from 'antd'
+import { Card, List, Tag, Button, Typography, App as AntdApp, Space, Empty, Badge, Avatar } from 'antd'
 import {
   BellOutlined, CheckOutlined, ReadOutlined,
   WalletOutlined, ExclamationCircleOutlined, CheckCircleOutlined
@@ -12,7 +12,7 @@ const { Title, Text } = Typography
 
 function Notifications() {
   const navigate = useNavigate()
-  const { message } = App.useApp()
+  const { message } = AntdApp.useApp()
   const [loading, setLoading] = useState(false)
   const [notifications, setNotifications] = useState([])
   const [unreadCount, setUnreadCount] = useState(0)

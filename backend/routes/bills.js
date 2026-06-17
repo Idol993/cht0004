@@ -1,5 +1,8 @@
 const express = require('express');
 const dayjs = require('dayjs');
+const { createObjectCsvWriter } = require('csv-writer');
+const path = require('path');
+const fs = require('fs');
 const db = require('../db');
 const { authMiddleware } = require('../middleware/auth');
 
@@ -84,6 +87,73 @@ router.get('/my/history', authMiddleware, (req, res) => {
   
   const result = db.bills.getHistoryByUser(req.user.id, { month, page, pageSize });
   res.json(result);
+});
+
+router.get('/my/export/:month', authMiddleware, (req, res) => {
+  const month = req.params.month;
+
+  if (!/^\d{4}-\d{2}$/.test(month)) {
+    return res.status(400).json({ error: '月份格式错误，应为 YYYY-MM' });
+  }
+
+  const result = db.bills.getUserMonthlyExport(req.user.id, month);
+  if (!result) {
+    return res.status(404).json({ error: '用户不存在' });
+  }
+
+  const { user, records } = result;
+
+  const exportDir = path.join(__dirname, '..', 'exports');
+  if (!fs.existsSync(exportDir)) {
+    fs.mkdirSync(exportDir, { recursive: true });
+  }
+
+  const filePath = path.join(exportDir, `my-statement-${user.username}-${month}.csv`);
+
+  const csvWriter = createObjectCsvWriter({
+    path: filePath,
+    header: [
+      { id: 'bill_id', title: '账单ID' },
+      { id: 'title', title: '账单标题' },
+      { id: 'bill_date', title: '账单日期' },
+      { id: 'due_date', title: '截止日期' },
+      { id: 'creator_name', title: '创建人' },
+      { id: 'bill_status', title: '账单状态' },
+      { id: 'share_amount', title: '应付金额' },
+      { id: 'paid_amount', title: '已付金额' },
+      { id: 'payment_status', title: '我的状态' },
+      { id: 'paid_at', title: '付款时间' }
+    ]
+  });
+
+  function getStatusText(status) {
+    const statusMap = {
+      'pending': '待支付',
+      'paid': '已支付',
+      'all_paid': '全部已付',
+      'settled': '已结算',
+      'closed': '已关闭'
+    };
+    return statusMap[status] || status;
+  }
+
+  const formattedRecords = records.map(r => ({
+    ...r,
+    bill_status: getStatusText(r.bill_status),
+    payment_status: getStatusText(r.payment_status)
+  }));
+
+  csvWriter.writeRecords(formattedRecords).then(() => {
+    res.download(filePath, `个人对账单-${user.nickname}-${month}.csv`, (err) => {
+      if (err) {
+        console.error(err);
+        res.status(500).json({ error: '导出失败' });
+      }
+    });
+  }).catch(err => {
+    console.error(err);
+    res.status(500).json({ error: '导出失败' });
+  });
 });
 
 router.get('/:id', authMiddleware, (req, res) => {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Card, Table, Tag, Space, Typography, App, Select, Button, DatePicker, Statistic, Row, Col } from 'antd'
+import { Card, Table, Tag, Space, Typography, App as AntdApp, Select, Button, DatePicker, Statistic, Row, Col } from 'antd'
 import { DownloadOutlined, EyeOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
 import dayjs from 'dayjs'
@@ -11,7 +11,7 @@ const { MonthPicker } = DatePicker
 
 function HistoryBills() {
   const navigate = useNavigate()
-  const { message } = App.useApp()
+  const { message } = AntdApp.useApp()
   const [loading, setLoading] = useState(false)
   const [bills, setBills] = useState([])
   const [total, setTotal] = useState(0)
@@ -67,6 +67,27 @@ function HistoryBills() {
   const handleMonthChange = (date) => {
     setSelectedMonth(date ? date.format('YYYY-MM') : null)
     setPagination(p => ({ ...p, current: 1 }))
+  }
+
+  const handleExport = async () => {
+    if (!selectedMonth) {
+      message.warning('请先选择要导出的月份')
+      return
+    }
+    try {
+      const res = await billApi.exportMyMonthly(selectedMonth)
+      const url = window.URL.createObjectURL(new Blob([res.data]))
+      const link = document.createElement('a')
+      link.href = url
+      link.setAttribute('download', `个人对账单-${selectedMonth}.csv`)
+      document.body.appendChild(link)
+      link.click()
+      link.remove()
+      window.URL.revokeObjectURL(url)
+      message.success('导出成功')
+    } catch (err) {
+      message.error('导出失败')
+    }
   }
 
   const columns = [
@@ -191,8 +212,9 @@ function HistoryBills() {
             onChange={handleMonthChange}
           />
           <Button
+            type="primary"
             icon={<DownloadOutlined />}
-            onClick={() => message.info('请前往管理后台导出对账单')}
+            onClick={handleExport}
           >
             导出对账单
           </Button>

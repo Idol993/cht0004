@@ -3,47 +3,59 @@
     {
       "id": 1,
       "username": "admin",
-      "password": "$2a$10$VDeygyd5QA5SGVX/QEPh2.t7Q3kzwkyBi6SpzTXo60V6WC6jscKXy",
+      "password": "$2a$10$x8PRjIU70fo/63mXqK.lYugDiICkLYesot.gQk8jbzPCnqIvHd8ku",
       "nickname": "系统管理员",
       "role": "admin",
-      "created_at": "2026-06-17T02:18:28.497Z"
+      "created_at": "2026-06-17T06:39:28.484Z"
     },
     {
       "id": 2,
       "username": "zhangsan",
-      "password": "$2a$10$e6jwWJeUn6YlTrFlB0ISKO8cIUSK4LYvQNu07sVyoeAYvGxwkTZ/6",
+      "password": "$2a$10$BRd1gK27BThzsFDmtuKdeu1zUhra1S6d/9iB0EIxOF.9kVC0BpFO2",
       "nickname": "张三",
       "role": "user",
-      "created_at": "2026-06-17T02:18:28.610Z"
+      "created_at": "2026-06-17T06:39:28.614Z"
     },
     {
       "id": 3,
       "username": "lisi",
-      "password": "$2a$10$e6jwWJeUn6YlTrFlB0ISKO8cIUSK4LYvQNu07sVyoeAYvGxwkTZ/6",
+      "password": "$2a$10$BRd1gK27BThzsFDmtuKdeu1zUhra1S6d/9iB0EIxOF.9kVC0BpFO2",
       "nickname": "李四",
       "role": "user",
-      "created_at": "2026-06-17T02:18:28.611Z"
+      "created_at": "2026-06-17T06:39:28.615Z"
     },
     {
       "id": 4,
       "username": "wangwu",
-      "password": "$2a$10$e6jwWJeUn6YlTrFlB0ISKO8cIUSK4LYvQNu07sVyoeAYvGxwkTZ/6",
+      "password": "$2a$10$BRd1gK27BThzsFDmtuKdeu1zUhra1S6d/9iB0EIxOF.9kVC0BpFO2",
       "nickname": "王五",
       "role": "user",
-      "created_at": "2026-06-17T02:18:28.612Z"
+      "created_at": "2026-06-17T06:39:28.616Z"
     }
   ],
   "bills": [
     {
       "id": 1,
-      "title": "6月水电费",
-      "total_amount": 300,
-      "bill_date": "2026-06-01",
-      "due_date": "2026-06-20",
+      "title": "6月水电煤分摊_143948",
+      "total_amount": 600,
+      "bill_date": "2026-06-17",
+      "due_date": "2026-06-27",
       "creator_id": 2,
-      "description": "本月水电费分摊",
+      "description": "测试完整流程",
+      "status": "closed",
+      "created_at": "2026-06-17T06:39:48.044Z",
+      "closed_at": "2026-06-17T06:39:48.387Z"
+    },
+    {
+      "id": 2,
+      "title": "测试严重逾期_143948",
+      "total_amount": 900,
+      "bill_date": "2026-06-02",
+      "due_date": "2026-06-07",
+      "creator_id": 2,
+      "description": "",
       "status": "pending",
-      "created_at": "2026-06-17T02:30:54.804Z",
+      "created_at": "2026-06-17T06:39:48.420Z",
       "closed_at": null
     }
   ],
@@ -51,63 +63,278 @@
     {
       "id": 1,
       "bill_id": 1,
-      "user_id": 2,
-      "share_amount": 100,
-      "paid_amount": 0,
-      "status": "pending",
-      "paid_at": null
+      "user_id": 3,
+      "share_amount": 200,
+      "paid_amount": 200,
+      "status": "paid",
+      "paid_at": "2026-06-17T06:39:48.191Z"
     },
     {
       "id": 2,
       "bill_id": 1,
+      "user_id": 4,
+      "share_amount": 200,
+      "paid_amount": 200,
+      "status": "paid",
+      "paid_at": "2026-06-17T06:39:48.364Z"
+    },
+    {
+      "id": 3,
+      "bill_id": 1,
+      "user_id": 2,
+      "share_amount": 200,
+      "paid_amount": 200,
+      "status": "paid",
+      "paid_at": "2026-06-17T06:39:48.373Z"
+    },
+    {
+      "id": 4,
+      "bill_id": 2,
       "user_id": 3,
-      "share_amount": 100,
+      "share_amount": 300,
       "paid_amount": 0,
       "status": "pending",
       "paid_at": null
     },
     {
-      "id": 3,
-      "bill_id": 1,
+      "id": 5,
+      "bill_id": 2,
       "user_id": 4,
-      "share_amount": 100,
+      "share_amount": 300,
+      "paid_amount": 0,
+      "status": "pending",
+      "paid_at": null
+    },
+    {
+      "id": 6,
+      "bill_id": 2,
+      "user_id": 2,
+      "share_amount": 300,
       "paid_amount": 0,
       "status": "pending",
       "paid_at": null
     }
   ],
-  "settlements": [],
+  "settlements": [
+    {
+      "id": 1,
+      "bill_id": 1,
+      "confirmed_by": 2,
+      "confirmed_at": "2026-06-17T06:39:48.388Z",
+      "created_at": "2026-06-17T06:39:48.377Z"
+    }
+  ],
   "notifications": [
     {
       "id": 1,
       "user_id": 3,
       "bill_id": 1,
       "type": "bill_created",
-      "title": "新账单：6月水电费",
-      "content": "张三 创建了一笔账单「6月水电费」，金额 ¥300，请及时查看。",
+      "title": "新账单：6月水电煤分摊_143948",
+      "content": "张三 创建了一笔账单「6月水电煤分摊_143948」，金额 ¥600，请及时查看。",
       "read_status": 0,
-      "created_at": "2026-06-17T02:30:54.809Z"
+      "created_at": "2026-06-17T06:39:48.047Z"
     },
     {
       "id": 2,
       "user_id": 4,
       "bill_id": 1,
       "type": "bill_created",
-      "title": "新账单：6月水电费",
-      "content": "张三 创建了一笔账单「6月水电费」，金额 ¥300，请及时查看。",
+      "title": "新账单：6月水电煤分摊_143948",
+      "content": "张三 创建了一笔账单「6月水电煤分摊_143948」，金额 ¥600，请及时查看。",
       "read_status": 0,
-      "created_at": "2026-06-17T02:30:54.810Z"
+      "created_at": "2026-06-17T06:39:48.048Z"
+    },
+    {
+      "id": 3,
+      "user_id": 2,
+      "bill_id": 1,
+      "type": "payment_made",
+      "title": "付款通知：6月水电煤分摊_143948",
+      "content": "李四 已支付账单「6月水电煤分摊_143948」，金额 ¥200.00。",
+      "read_status": 0,
+      "created_at": "2026-06-17T06:39:48.193Z"
+    },
+    {
+      "id": 4,
+      "user_id": 2,
+      "bill_id": 1,
+      "type": "payment_made",
+      "title": "付款通知：6月水电煤分摊_143948",
+      "content": "王五 已支付账单「6月水电煤分摊_143948」，金额 ¥200.00。",
+      "read_status": 0,
+      "created_at": "2026-06-17T06:39:48.367Z"
+    },
+    {
+      "id": 5,
+      "user_id": 2,
+      "bill_id": 1,
+      "type": "payment_made",
+      "title": "付款通知：6月水电煤分摊_143948",
+      "content": "张三 已支付账单「6月水电煤分摊_143948」，金额 ¥200.00。",
+      "read_status": 0,
+      "created_at": "2026-06-17T06:39:48.375Z"
+    },
+    {
+      "id": 6,
+      "user_id": 3,
+      "bill_id": 1,
+      "type": "bill_settled",
+      "title": "账单已结清：6月水电煤分摊_143948",
+      "content": "账单「6月水电煤分摊_143948」所有人均已付款，已生成结算单。",
+      "read_status": 0,
+      "created_at": "2026-06-17T06:39:48.379Z"
+    },
+    {
+      "id": 7,
+      "user_id": 4,
+      "bill_id": 1,
+      "type": "bill_settled",
+      "title": "账单已结清：6月水电煤分摊_143948",
+      "content": "账单「6月水电煤分摊_143948」所有人均已付款，已生成结算单。",
+      "read_status": 0,
+      "created_at": "2026-06-17T06:39:48.380Z"
+    },
+    {
+      "id": 8,
+      "user_id": 2,
+      "bill_id": 1,
+      "type": "bill_settled",
+      "title": "账单已结清：6月水电煤分摊_143948",
+      "content": "账单「6月水电煤分摊_143948」所有人均已付款，已生成结算单。",
+      "read_status": 0,
+      "created_at": "2026-06-17T06:39:48.381Z"
+    },
+    {
+      "id": 9,
+      "user_id": 3,
+      "bill_id": 1,
+      "type": "bill_closed",
+      "title": "账单已关闭：6月水电煤分摊_143948",
+      "content": "发起人已确认收款，账单「6月水电煤分摊_143948」已关闭。",
+      "read_status": 0,
+      "created_at": "2026-06-17T06:39:48.389Z"
+    },
+    {
+      "id": 10,
+      "user_id": 4,
+      "bill_id": 1,
+      "type": "bill_closed",
+      "title": "账单已关闭：6月水电煤分摊_143948",
+      "content": "发起人已确认收款，账单「6月水电煤分摊_143948」已关闭。",
+      "read_status": 0,
+      "created_at": "2026-06-17T06:39:48.391Z"
+    },
+    {
+      "id": 11,
+      "user_id": 3,
+      "bill_id": 2,
+      "type": "bill_created",
+      "title": "新账单：测试严重逾期_143948",
+      "content": "张三 创建了一笔账单「测试严重逾期_143948」，金额 ¥900，请及时查看。",
+      "read_status": 0,
+      "created_at": "2026-06-17T06:39:48.423Z"
+    },
+    {
+      "id": 12,
+      "user_id": 4,
+      "bill_id": 2,
+      "type": "bill_created",
+      "title": "新账单：测试严重逾期_143948",
+      "content": "张三 创建了一笔账单「测试严重逾期_143948」，金额 ¥900，请及时查看。",
+      "read_status": 0,
+      "created_at": "2026-06-17T06:39:48.425Z"
+    },
+    {
+      "id": 13,
+      "user_id": 2,
+      "bill_id": 2,
+      "type": "severe_overdue",
+      "title": "严重逾期通知：测试严重逾期_143948",
+      "content": "账单「测试严重逾期_143948」中的 李四 已逾期 10 天未支付 ¥300.00，请及时跟进。",
+      "read_status": 0,
+      "created_at": "2026-06-17T06:39:48.433Z"
+    },
+    {
+      "id": 14,
+      "user_id": 2,
+      "bill_id": 2,
+      "type": "severe_overdue",
+      "title": "严重逾期通知：测试严重逾期_143948",
+      "content": "账单「测试严重逾期_143948」中的 王五 已逾期 10 天未支付 ¥300.00，请及时跟进。",
+      "read_status": 0,
+      "created_at": "2026-06-17T06:39:48.436Z"
+    },
+    {
+      "id": 15,
+      "user_id": 2,
+      "bill_id": 2,
+      "type": "severe_overdue",
+      "title": "严重逾期通知：测试严重逾期_143948",
+      "content": "账单「测试严重逾期_143948」中的 张三 已逾期 10 天未支付 ¥300.00，请及时跟进。",
+      "read_status": 0,
+      "created_at": "2026-06-17T06:39:48.440Z"
     }
   ],
-  "payment_records": [],
-  "reminder_logs": [],
+  "payment_records": [
+    {
+      "id": 1,
+      "bill_id": 1,
+      "participant_id": 1,
+      "amount": 200,
+      "payment_method": "微信",
+      "remark": "",
+      "created_at": "2026-06-17T06:39:48.192Z"
+    },
+    {
+      "id": 2,
+      "bill_id": 1,
+      "participant_id": 2,
+      "amount": 200,
+      "payment_method": "支付宝",
+      "remark": "",
+      "created_at": "2026-06-17T06:39:48.366Z"
+    },
+    {
+      "id": 3,
+      "bill_id": 1,
+      "participant_id": 3,
+      "amount": 200,
+      "payment_method": "自付",
+      "remark": "",
+      "created_at": "2026-06-17T06:39:48.374Z"
+    }
+  ],
+  "reminder_logs": [
+    {
+      "id": 1,
+      "bill_id": 2,
+      "user_id": 3,
+      "reminder_type": "severely_overdue",
+      "created_at": "2026-06-17T06:39:48.434Z"
+    },
+    {
+      "id": 2,
+      "bill_id": 2,
+      "user_id": 4,
+      "reminder_type": "severely_overdue",
+      "created_at": "2026-06-17T06:39:48.437Z"
+    },
+    {
+      "id": 3,
+      "bill_id": 2,
+      "user_id": 2,
+      "reminder_type": "severely_overdue",
+      "created_at": "2026-06-17T06:39:48.442Z"
+    }
+  ],
   "counters": {
     "users": 4,
-    "bills": 1,
-    "bill_participants": 3,
-    "settlements": 0,
-    "notifications": 2,
-    "payment_records": 0,
-    "reminder_logs": 0
+    "bills": 2,
+    "bill_participants": 6,
+    "settlements": 1,
+    "notifications": 15,
+    "payment_records": 3,
+    "reminder_logs": 3
   }
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Card, Col, Row, Statistic, List, Tag, Typography, App, Button, Table, Space } from 'antd'
+import { Card, Col, Row, Statistic, List, Tag, Typography, App as AntdApp, Button, Table, Space } from 'antd'
 import {
   UserOutlined, WalletOutlined, ClockCircleOutlined,
   CheckCircleOutlined, ExclamationCircleOutlined, TeamOutlined
@@ -12,7 +12,7 @@ const { Title } = Typography
 
 function AdminDashboard() {
   const navigate = useNavigate()
-  const { message } = App.useApp()
+  const { message } = AntdApp.useApp()
   const [stats, setStats] = useState({})
   const [overdueList, setOverdueList] = useState([])
   const [loading, setLoading] = useState(false)

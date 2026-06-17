@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Form, Input, Button, Card, App, Typography } from 'antd'
+import { Form, Input, Button, Card, App as AntdApp, Typography } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import { useNavigate, Link } from 'react-router-dom'
 import { authApi } from '../api'
@@ -8,7 +8,7 @@ const { Title, Text } = Typography
 
 function Login() {
   const navigate = useNavigate()
-  const { message } = App.useApp()
+  const { message } = AntdApp.useApp()
   const [loading, setLoading] = useState(false)
 
   const onFinish = async (values) => {
