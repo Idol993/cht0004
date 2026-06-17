@@ -1,0 +1,113 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "admin",
+      "password": "$2a$10$VDeygyd5QA5SGVX/QEPh2.t7Q3kzwkyBi6SpzTXo60V6WC6jscKXy",
+      "nickname": "系统管理员",
+      "role": "admin",
+      "created_at": "2026-06-17T02:18:28.497Z"
+    },
+    {
+      "id": 2,
+      "username": "zhangsan",
+      "password": "$2a$10$e6jwWJeUn6YlTrFlB0ISKO8cIUSK4LYvQNu07sVyoeAYvGxwkTZ/6",
+      "nickname": "张三",
+      "role": "user",
+      "created_at": "2026-06-17T02:18:28.610Z"
+    },
+    {
+      "id": 3,
+      "username": "lisi",
+      "password": "$2a$10$e6jwWJeUn6YlTrFlB0ISKO8cIUSK4LYvQNu07sVyoeAYvGxwkTZ/6",
+      "nickname": "李四",
+      "role": "user",
+      "created_at": "2026-06-17T02:18:28.611Z"
+    },
+    {
+      "id": 4,
+      "username": "wangwu",
+      "password": "$2a$10$e6jwWJeUn6YlTrFlB0ISKO8cIUSK4LYvQNu07sVyoeAYvGxwkTZ/6",
+      "nickname": "王五",
+      "role": "user",
+      "created_at": "2026-06-17T02:18:28.612Z"
+    }
+  ],
+  "bills": [
+    {
+      "id": 1,
+      "title": "6月水电费",
+      "total_amount": 300,
+      "bill_date": "2026-06-01",
+      "due_date": "2026-06-20",
+      "creator_id": 2,
+      "description": "本月水电费分摊",
+      "status": "pending",
+      "created_at": "2026-06-17T02:30:54.804Z",
+      "closed_at": null
+    }
+  ],
+  "bill_participants": [
+    {
+      "id": 1,
+      "bill_id": 1,
+      "user_id": 2,
+      "share_amount": 100,
+      "paid_amount": 0,
+      "status": "pending",
+      "paid_at": null
+    },
+    {
+      "id": 2,
+      "bill_id": 1,
+      "user_id": 3,
+      "share_amount": 100,
+      "paid_amount": 0,
+      "status": "pending",
+      "paid_at": null
+    },
+    {
+      "id": 3,
+      "bill_id": 1,
+      "user_id": 4,
+      "share_amount": 100,
+      "paid_amount": 0,
+      "status": "pending",
+      "paid_at": null
+    }
+  ],
+  "settlements": [],
+  "notifications": [
+    {
+      "id": 1,
+      "user_id": 3,
+      "bill_id": 1,
+      "type": "bill_created",
+      "title": "新账单：6月水电费",
+      "content": "张三 创建了一笔账单「6月水电费」，金额 ¥300，请及时查看。",
+      "read_status": 0,
+      "created_at": "2026-06-17T02:30:54.809Z"
+    },
+    {
+      "id": 2,
+      "user_id": 4,
+      "bill_id": 1,
+      "type": "bill_created",
+      "title": "新账单：6月水电费",
+      "content": "张三 创建了一笔账单「6月水电费」，金额 ¥300，请及时查看。",
+      "read_status": 0,
+      "created_at": "2026-06-17T02:30:54.810Z"
+    }
+  ],
+  "payment_records": [],
+  "reminder_logs": [],
+  "counters": {
+    "users": 4,
+    "bills": 1,
+    "bill_participants": 3,
+    "settlements": 0,
+    "notifications": 2,
+    "payment_records": 0,
+    "reminder_logs": 0
+  }
+}
